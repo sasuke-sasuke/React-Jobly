@@ -1,9 +1,11 @@
-
+import SearchBar from "../components/SearchBar"
+import JobCard from "../components/JobCard"
 
 export default function Jobs() {
     return (
         <>
-            <h1>Jobs</h1>
+            <SearchBar />
+            <JobCard />
         </>
     )
 }

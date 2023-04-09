@@ -7,9 +7,13 @@ export default function SearchBar() {
         setTerm(evt.target.value);
     }
 
+    function handleSubmit(evt){
+        evt.preventDefault();
+    }
+
     return (
         <>
-            <form >
+            <form onSubmit={handleSubmit}>
                 <input type="text" placeholder="Search" onChange={handleChange} value={term} />
                 <button type='submit '>Submit</button>
             </form>
