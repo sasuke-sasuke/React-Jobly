@@ -70,19 +70,27 @@ export default class JoblyApi {
   }
 
   /** Signup a new user */
-  static async signupUser(username, password) {
-    let res = await this.request("register", { username, password }, "post");
-    return res.user;
+  static async signupUser(username, password, firstName, lastName, email) {
+    let res = await this.request("auth/register", { username, password, firstName, lastName, email }, "post");
+    JoblyApi.token = res.token;
+    return res.token;
   }
 
   /** Login a user */
   static async loginUser(username, password) {
-    let res = await this.request("users/login", { username, password });
+    let res = await this.request("auth/token", { username, password }, "post");
+    JoblyApi.token = res.token;
+    return res.token;
+  }
+
+  /** Logout a user */
+  static async logoutUser() {
+    let res = await this.request("/logout");
     return res.user;
   }
 }
 
 // for now, put token ("testuser" / "password" on class)
-JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-    "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-    "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+// JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
+//     "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
+//     "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
