@@ -1,4 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { TokenContext } from '../context/TokenContext';
+import { UserContext } from '../context/UserContext';
+import JoblyApi from '../api';
+import Button from './Button';
 
 export default function SignupForm() {
     const [username, setUsername] = useState('');
@@ -6,6 +10,8 @@ export default function SignupForm() {
     const [fname, setFname] = useState('');
     const [lname, setLname] = useState('');
     const [email, setEmail] = useState('');
+    const {setToken} = useContext(TokenContext);
+    const {setCurrentUser} = useContext(UserContext);
 
     function handleChange(evt) {
         switch (evt.target.name) {
@@ -29,14 +35,19 @@ export default function SignupForm() {
         }
      }
 
-     function handleSubmit(evt) {
-        evt.preventDefault();
-        
+     async function handleSubmit(evt) {
+        try {
+            const token = await JoblyApi.signupUser(username, password, fname, lname, email)
+            setToken(token);
+            setCurrentUser(username);  
+        } catch (err) {
+            console.error(err);
+        }
      }
 
     return (
         <>
-           <form onSubmit={handleSubmit}>
+           <form>
             <label htmlFor="username">Username</label>
             <input 
                 type="text" 
@@ -83,7 +94,7 @@ export default function SignupForm() {
                 value={email}
             />
 
-            <button type="submit">Login</button>
+            <Button path='/' text='Sign Up' func={handleSubmit} />
 
            </form>
         </>

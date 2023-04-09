@@ -1,22 +1,38 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { TokenContext } from '../context/TokenContext';
+import { UserContext } from "../context/UserContext";
+import useLocalStorage from '../hooks/useLocalStorage';
+import JoblyApi from '../api';
+import Button from './Button';
 
 export default function LoginForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const {setToken} = useContext(TokenContext);
+    const {setCurrentUser} = useContext(UserContext);
+    const [storedValue, setStoredValue] = useLocalStorage('token');
 
     function handleChange(evt) {
         (evt.target.name === 'username')? setUsername(evt.target.value)
         : setPassword(evt.target.value)
      }
 
-     function handleSubmit(evt) {
-        evt.preventDefault();
-        
+     async function handleSubmit(evt) {
+        try {
+            const t = await JoblyApi.loginUser(username, password);
+            setToken(t);
+            setStoredValue(t);
+            setCurrentUser(username);
+        } catch (err) {
+            console.error(err);
+        }
      }
+
+    
 
     return (
         <>
-           <form onSubmit={handleSubmit}>
+           <form >
             <label htmlFor="username">Username</label>
             <input 
                 type="text" 
@@ -35,7 +51,7 @@ export default function LoginForm() {
                 onChange={handleChange} 
                 value={password}
             />
-            <button type="submit">Login</button>
+            <Button path='/' text='Login' func={handleSubmit} />
 
            </form>
         </>
