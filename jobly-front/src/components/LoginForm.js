@@ -11,6 +11,7 @@ export default function LoginForm() {
     const {setToken} = useContext(TokenContext);
     const {setCurrentUser} = useContext(UserContext);
     const [storedValue, setStoredValue] = useLocalStorage('token');
+    const [user, setUser] = useLocalStorage('user');
 
     function handleChange(evt) {
         (evt.target.name === 'username')? setUsername(evt.target.value)
@@ -23,6 +24,7 @@ export default function LoginForm() {
             setToken(t);
             setStoredValue(t);
             setCurrentUser(username);
+            setUser(username);
         } catch (err) {
             console.error(err);
         }
