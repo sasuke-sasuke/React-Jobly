@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import JoblyApi from '../api';
 
 export default function CompanyCard() {
@@ -17,10 +18,12 @@ export default function CompanyCard() {
     return (
         <>
             {companies.map(c => (
-                <div key={crypto.randomUUID()}>
-                    <h2>{c.name}</h2>
-                    <p>{c.description}</p>
-                </div>
+                <Link key={crypto.randomUUID()} to={`/companies/${c.handle}`}>
+                    <div>
+                        <h2>{c.name}</h2>
+                        <p>{c.description}</p>
+                    </div>
+                </Link>
             ))}
         </>
     )
