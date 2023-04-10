@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react';
 import { TokenContext } from '../context/TokenContext';
 import { UserContext } from "../context/UserContext";
-import useLocalStorage from '../hooks/useLocalStorage';
 import JoblyApi from '../api';
 import Button from './Button';
 
@@ -10,8 +9,6 @@ export default function LoginForm() {
     const [password, setPassword] = useState('');
     const {setToken} = useContext(TokenContext);
     const {setCurrentUser} = useContext(UserContext);
-    const [storedValue, setStoredValue] = useLocalStorage('token');
-    const [user, setUser] = useLocalStorage('user');
 
     function handleChange(evt) {
         (evt.target.name === 'username')? setUsername(evt.target.value)
@@ -20,17 +17,13 @@ export default function LoginForm() {
 
      async function handleSubmit(evt) {
         try {
-            const t = await JoblyApi.loginUser(username, password);
-            setToken(t);
-            setStoredValue(t);
+            const token = await JoblyApi.loginUser(username, password);
+            setToken(token);
             setCurrentUser(username);
-            setUser(username);
         } catch (err) {
             console.error(err);
         }
      }
-
-    
 
     return (
         <>

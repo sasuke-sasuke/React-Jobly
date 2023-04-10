@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import TokenProvider from "./context/TokenProvider";
 import UserProvider from "./context/UserProvider";
 import NavBar from "./components/NavBar";
-import AppRoutes from "./components/routes";
+import AppRoutes from "./components/AppRoutes";
 
 function App() {
   return (

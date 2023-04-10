@@ -1,13 +1,18 @@
 import { useContext } from "react";
+import { TokenContext } from "../context/TokenContext";
 import { UserContext } from "../context/UserContext";
-import {NavLink, Navigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 
 export default function NavBar() {
-    const { currentUser, setCurrentUser } = useContext(UserContext);
+    const {setToken, removeToken} = useContext(TokenContext);
+    const { currentUser, setCurrentUser, removeUser } = useContext(UserContext);
     
     const handleLogout = () => {
-        setCurrentUser(null);
+        removeToken();
+        removeUser();
+        setCurrentUser('');
+        setToken('')
     }
 
     return (
