@@ -1,16 +1,5 @@
-import { useState, useEffect } from "react";
-import JoblyApi from "../api";
 
-export default function JobCard() {
-    const [jobs, setJobs] = useState([]);
-
-    useEffect(() => {
-        async function fetchJobs() {
-            const res = await JoblyApi.getJobs();
-            setJobs([...res]);
-        }
-        fetchJobs();
-    }, [])
+export default function JobCard({jobs}) {
 
     return (
         <>
