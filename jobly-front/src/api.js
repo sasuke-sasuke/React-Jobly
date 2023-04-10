@@ -69,6 +69,18 @@ export default class JoblyApi {
     return res.user;
   }
 
+  /** Patch request to user */
+  static async patchUser(username, data) {
+    let res = await this.request(`users/${username}`, data, "patch");
+    return res.user;
+  }
+
+  /** Delete a user by username */
+  static async deleteUser(username) {
+    let res = await this.request(`users/${username}`, {}, "delete");
+    return res.user;
+  }
+
   /** Signup a new user */
   static async signupUser(username, password, firstName, lastName, email) {
     let res = await this.request("auth/register", { username, password, firstName, lastName, email }, "post");
