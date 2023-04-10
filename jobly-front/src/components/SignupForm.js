@@ -5,41 +5,31 @@ import JoblyApi from '../api';
 import Button from './Button';
 
 export default function SignupForm() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [fname, setFname] = useState('');
-    const [lname, setLname] = useState('');
-    const [email, setEmail] = useState('');
+    const [formData, setFormData] = useState({
+        username: '',
+        password: '',
+        fname: '',
+        lname: '',
+        email: ''
+    });
     const {setToken} = useContext(TokenContext);
     const {setCurrentUser} = useContext(UserContext);
 
+
+    /** Handle change updating formdata state */
     function handleChange(evt) {
-        switch (evt.target.name) {
-            case 'username':
-                setUsername(evt.target.value);
-                break;
-            case 'password':
-                setPassword(evt.target.value);
-                break;
-            case 'fname':
-                setFname(evt.target.value);
-                break;
-            case 'lname':
-                setLname(evt.target.value);
-                break;
-            case 'email':
-                setEmail(evt.target.value);
-                break;
-            default:
-                break;
-        }
-     }
+        setFormData({
+              ...formData,
+                [evt.target.name]: evt.target.value
+            }
+        );
+    }
 
      async function handleSubmit(evt) {
         try {
-            const token = await JoblyApi.signupUser(username, password, fname, lname, email)
+            const token = await JoblyApi.signupUser(formData.username, formData.password, formData.fname, formData.lname, formData.email)
             setToken(token);
-            setCurrentUser(username);  
+            setCurrentUser(formData.username);  
         } catch (err) {
             console.error(err);
         }
@@ -55,7 +45,7 @@ export default function SignupForm() {
                 id="username" 
                 autoComplete='username' 
                 onChange={handleChange} 
-                value={username} 
+                value={formData.username} 
             />
             <label htmlFor="password">Password</label>
             <input 
@@ -64,7 +54,7 @@ export default function SignupForm() {
                 id="password" 
                 autoComplete='current-password' 
                 onChange={handleChange} 
-                value={password}
+                value={formData.password}
             />
             <label htmlFor="fname">First Name</label>
             <input
@@ -73,7 +63,7 @@ export default function SignupForm() {
                 id="fname"
                 autoComplete='fname'
                 onChange={handleChange}
-                value={fname}
+                value={formData.fname}
             />
             <label htmlFor="lname">Last Name</label>
             <input
@@ -82,7 +72,7 @@ export default function SignupForm() {
                 id="lname"
                 autoComplete='lname'
                 onChange={handleChange}
-                value={lname}
+                value={formData.lname}
             />
             <label htmlFor="email">Email</label>
             <input
@@ -91,7 +81,7 @@ export default function SignupForm() {
                 id="email"
                 autoComplete='email'
                 onChange={handleChange}
-                value={email}
+                value={formData.email}
             />
 
             <Button path='/' text='Sign Up' func={handleSubmit} />
