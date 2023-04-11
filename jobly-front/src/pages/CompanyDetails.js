@@ -6,6 +6,7 @@ import JoblyApi from '../api';
 export default function CompanyDetails(){
     const [company, setCompany] = useState([]);
     const [jobs, setJobs] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const {handle} = useParams();
 
     useEffect(() => {
@@ -13,6 +14,7 @@ export default function CompanyDetails(){
             const res = await JoblyApi.getCompany(handle);
             setCompany(res);
             setJobs(res.jobs);
+            setIsLoading(false);
         }
         fetchCompanyDetails();
     }, []);
@@ -21,7 +23,7 @@ export default function CompanyDetails(){
         <>
             <h1>{company.name}</h1>
             <p>{company.description}</p>
-            <JobCard jobs={jobs} isTitleHidden={true} />
+            {isLoading ? <div>Loading...</div> : <JobCard jobs={jobs} isTitleHidden={true} /> }
         </>
     )
 

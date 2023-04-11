@@ -6,12 +6,14 @@ import JoblyApi from "../api";
 
 export default function Jobs() {
     const [jobs, setJobs] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const {filteredSearch, searchParams} = useContext(SearchContext);
 
     useEffect(() => {
         async function fetchJobs() {
             const res = await JoblyApi.getJobs();
             setJobs([...res]);
+            setIsLoading(false);
         }
         fetchJobs();
     }, [])
@@ -28,7 +30,7 @@ export default function Jobs() {
     return (
         <>
             <SearchBar searchFunc={handleChildSearch} />
-            <JobCard jobs={jobs} />
+            {isLoading ? <div>Loading...</div> : <JobCard jobs={jobs} /> }
         </>
     )
 }

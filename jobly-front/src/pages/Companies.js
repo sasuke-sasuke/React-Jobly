@@ -1,17 +1,19 @@
 import {useState, useEffect, useContext} from 'react';
 import { SearchContext } from '../context/SearchContext';
 import JoblyApi from '../api';
-import SearchBar from "../components/SearchBar"
-import CompanyCard from "../components/CompanyCard"
+import SearchBar from "../components/SearchBar";
+import CompanyCard from "../components/CompanyCard";
 
 export default function Companies() {
     const [companies, setCompanies] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const {filteredSearch, searchParams} = useContext(SearchContext);
 
     useEffect(() => {
         async function fetchCompanies() {
             const res = await JoblyApi.getCompanies();
             setCompanies([...res]);
+            setIsLoading(false);
         }
         fetchCompanies();
     }, []);
@@ -22,14 +24,15 @@ export default function Companies() {
     }, [filteredSearch]);
 
     async function handleChildSearch () {
-        return await JoblyApi.filterCompanies(searchParams) 
+        const data = await JoblyApi.filterCompanies(searchParams) 
+        return data;
     }
 
 
     return (
         <>
             <SearchBar searchFunc={handleChildSearch} />
-            <CompanyCard companies={companies} />
+            {isLoading ? <div>Loading...</div> : <CompanyCard companies={companies} />}
         </>
     )
 }
