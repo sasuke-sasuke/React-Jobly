@@ -6,7 +6,7 @@ import CompanyCard from "../components/CompanyCard"
 
 export default function Companies() {
     const [companies, setCompanies] = useState([]);
-    const {filteredSearch} = useContext(SearchContext);
+    const {filteredSearch, searchParams} = useContext(SearchContext);
 
     useEffect(() => {
         async function fetchCompanies() {
@@ -21,9 +21,14 @@ export default function Companies() {
         setCompanies([...filteredSearch]);
     }, [filteredSearch]);
 
+    async function handleChildSearch () {
+        return await JoblyApi.filterCompanies(searchParams) 
+    }
+
+
     return (
         <>
-            <SearchBar />
+            <SearchBar searchFunc={handleChildSearch} />
             <CompanyCard companies={companies} />
         </>
     )
