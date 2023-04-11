@@ -51,7 +51,7 @@ export default class JoblyApi {
     return res.companies;
   }
 
-  /** filter company by 'LIKE name search params */
+  /** filter company by 'LIKE' name search params */
   static async filterCompanies(params) {
     let res = await this.request("companies", {name: params});
     return res.companies;
@@ -67,6 +67,12 @@ export default class JoblyApi {
   static async getJob(id) {
     let res = await this.request(`jobs/${id}`);
     return res.job;
+  }
+
+  /** filter job by 'LIKE' title search params */
+  static async filterJobs(params) {
+    let res = await this.request("jobs", {title: params});
+    return res.jobs;
   }
 
   /** Get user by username */
