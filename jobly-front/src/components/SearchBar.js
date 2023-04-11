@@ -1,28 +1,29 @@
 import {useState, useContext} from 'react';
 import { SearchContext } from '../context/SearchContext';
 import useDebounce from '../hooks/useDebounce';
-import JoblyApi from '../api';
 
-export default function SearchBar() {
+export default function SearchBar({searchFunc}) {
     const [term, setTerm] = useState('');
-    const {setFilteredSearch} = useContext(SearchContext);
+    const {setFilteredSearch, setSearchParams} = useContext(SearchContext);
     
     useDebounce(() => {
-        fetchFilteredCompanies();
+        fetchFilteredSearch();
     }, 1000, [term])
 
-    async function fetchFilteredCompanies() {
-        const res = await JoblyApi.filterCompanies(term)
+    async function fetchFilteredSearch() {
+        const res = await searchFunc();
         setFilteredSearch([...res]);
     }
 
     function handleChange(evt){
         setTerm(evt.target.value);
+        setSearchParams(term);
     }
 
     function handleSubmit(evt){
         evt.preventDefault();
-        fetchFilteredCompanies();
+        setSearchParams(term);
+        fetchFilteredSearch();
         setTerm('');
     }
 
