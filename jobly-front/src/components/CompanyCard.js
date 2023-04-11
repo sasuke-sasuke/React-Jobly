@@ -1,19 +1,6 @@
-import {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
-import JoblyApi from '../api';
+import {Link} from "react-router-dom";
 
-export default function CompanyCard() {
-    const [companies, setCompanies] = useState([]);
-
-    useEffect(() => {
-        async function fetchCompanies() {
-            const res = await JoblyApi.getCompanies();
-            setCompanies([...res]);
-        }
-        fetchCompanies();
-    }, []);
-
-    
+export default function CompanyCard({companies}) {
 
     return (
         <>
