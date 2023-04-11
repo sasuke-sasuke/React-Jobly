@@ -51,6 +51,12 @@ export default class JoblyApi {
     return res.companies;
   }
 
+  /** filter company by 'LIKE name search params */
+  static async filterCompanies(params) {
+    let res = await this.request("companies", {name: params});
+    return res.companies;
+  }
+
   /** Get a list of jobs. */
   static async getJobs() {
     let res = await this.request("jobs");
@@ -101,6 +107,10 @@ export default class JoblyApi {
     return res.user;
   }
 }
+
+
+
+
 
 // for now, put token ("testuser" / "password" on class)
 // JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
