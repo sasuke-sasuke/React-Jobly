@@ -1,3 +1,4 @@
+import JobCardButton from "./JobCardButton";
 
 export default function JobCard({jobs, isTitleHidden=false}) {
 
@@ -9,7 +10,7 @@ export default function JobCard({jobs, isTitleHidden=false}) {
                     {isTitleHidden && <p>{j.companyName}</p>}
                     <p>Salary: {j.salary}</p>
                     <p>Equity: {j.equity}</p>
-                    <button>Apply</button>
+                    <JobCardButton jobId={j.id} />
                 </div>
             ))}
         </>
