@@ -1,0 +1,12 @@
+.CompanyCard {
+    text-decoration: none;
+    color: black;
+}
+
+.CompanyCard:visited {
+    color: inherit;
+}
+
+.CompanyCard:hover {
+    color: blue;
+}
