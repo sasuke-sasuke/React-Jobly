@@ -3,6 +3,11 @@ import { TokenContext } from '../context/TokenContext';
 import { UserContext } from '../context/UserContext';
 import JoblyApi from '../api';
 import Button from './Button';
+import Box from '@mui/material/Box'
+import Paper from '@mui/material/Paper'
+import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+
 
 export default function SignupForm() {
     const [formData, setFormData] = useState({
@@ -37,56 +42,75 @@ export default function SignupForm() {
 
     return (
         <>
-           <form>
-            <label htmlFor="username">Username</label>
-            <input 
+        <Paper elevation={3} sx={{p:2, mt:1}} >
+           <Box component='form'>
+            <InputLabel htmlFor="username">Username</InputLabel>
+            <TextField
+                fullWidth  
                 type="text" 
                 name="username" 
                 id="username" 
                 autoComplete='username' 
                 onChange={handleChange} 
                 value={formData.username} 
+                sx={{mb:2}}
+                InputProps={{ sx: { height: 50 } }}
             />
-            <label htmlFor="password">Password</label>
-            <input 
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <TextField
+                fullWidth  
                 type="password" 
                 name="password" 
                 id="password" 
                 autoComplete='current-password' 
                 onChange={handleChange} 
                 value={formData.password}
+                sx={{mb:2}}
+                InputProps={{ sx: { height: 50 } }}
             />
-            <label htmlFor="fname">First Name</label>
-            <input
+            <InputLabel htmlFor="fname">First Name</InputLabel>
+            <TextField
+                fullWidth 
                 type="text"
                 name="fname"
                 id="fname"
                 autoComplete='fname'
                 onChange={handleChange}
                 value={formData.fname}
+                sx={{mb:2}}
+                InputProps={{ sx: { height: 50 } }}
             />
-            <label htmlFor="lname">Last Name</label>
-            <input
+            <InputLabel htmlFor="lname">Last Name</InputLabel>
+            <TextField
+                fullWidth 
                 type="text"
                 name="lname"
                 id="lname"
                 autoComplete='lname'
                 onChange={handleChange}
                 value={formData.lname}
+                sx={{mb:2}}
+                InputProps={{ sx: { height: 50 } }}
             />
-            <label htmlFor="email">Email</label>
-            <input
+            <InputLabel htmlFor="email">Email</InputLabel>
+            <TextField
+                fullWidth 
                 type="email"
                 name="email"
                 id="email"
                 autoComplete='email'
                 onChange={handleChange}
                 value={formData.email}
+                sx={{mb:2}}
+                InputProps={{ sx: { height: 50 } }}
             />
 
-            <Button path='/' text='Sign Up' func={handleSubmit} />
+            <Box className='EditForm-button' sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Button path='/' text='Sign Up' func={handleSubmit} />
+            </Box>
 
-           </form>
+           </Box>
+        </Paper>
         </>
     )
 }

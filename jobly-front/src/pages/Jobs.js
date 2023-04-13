@@ -3,6 +3,8 @@ import { SearchContext } from "../context/SearchContext";
 import SearchBar from "../components/SearchBar"
 import JobCard from "../components/JobCard"
 import JoblyApi from "../api";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Jobs() {
     const [jobs, setJobs] = useState([]);
@@ -30,7 +32,12 @@ export default function Jobs() {
     return (
         <>
             <SearchBar searchFunc={handleChildSearch} />
-            {isLoading ? <div>Loading...</div> : <JobCard jobs={jobs} /> }
+            {isLoading ? 
+                <Box sx={{display: 'flex', justifyContent: 'center', mt:10 }}>
+                    <CircularProgress size={100} />
+                </Box> 
+                : 
+                <JobCard jobs={jobs} /> }
         </>
     )
 }

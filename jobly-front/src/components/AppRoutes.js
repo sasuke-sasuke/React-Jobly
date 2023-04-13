@@ -19,7 +19,7 @@ export default function AppRoutes() {
                     <Route path='/companies' element={<Companies/>} />
                     <Route path='/companies/:handle' element={<CompanyDetails/>} />
                     <Route path='/jobs' element={<Jobs/>} />
-                    <Route path='/profile' element={<Profile/>} />
+                    <Route path='/profile/:user' element={<Profile/>} />
                 </Route>
                 
 

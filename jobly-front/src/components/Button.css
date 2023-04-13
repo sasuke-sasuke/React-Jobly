@@ -1,0 +1,8 @@
+.Button-homepage a {
+    text-decoration: none;
+    color: white;
+}
+
+.Button-homepage a:hover {
+    color: #e7decc;
+}

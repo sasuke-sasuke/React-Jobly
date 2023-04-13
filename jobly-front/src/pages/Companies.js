@@ -3,6 +3,8 @@ import { SearchContext } from '../context/SearchContext';
 import JoblyApi from '../api';
 import SearchBar from "../components/SearchBar";
 import CompanyCard from "../components/CompanyCard";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Companies() {
     const [companies, setCompanies] = useState([]);
@@ -32,7 +34,12 @@ export default function Companies() {
     return (
         <>
             <SearchBar searchFunc={handleChildSearch} />
-            {isLoading ? <div>Loading...</div> : <CompanyCard companies={companies} />}
+            {isLoading ? 
+                <Box sx={{display: 'flex', justifyContent: 'center', mt:10 }}>
+                    <CircularProgress size={100} />
+                </Box>  
+                : 
+                <CompanyCard companies={companies} />}
         </>
     )
 }

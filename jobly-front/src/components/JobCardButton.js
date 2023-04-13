@@ -1,5 +1,8 @@
 import {useState, useEffect} from 'react';
 import useToggle from "../hooks/useToggle"
+import './JobCardButton.css';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 export default function JobCardButton({jobId}) {
     const [hasApplied, toggle ] = useToggle(false)
@@ -20,8 +23,18 @@ export default function JobCardButton({jobId}) {
     }
 
     return (
-        <button onClick={handleClick}>
-            {isStored && hasApplied? "Applied" : "Apply"}
-        </button>
+        <Box sx={{ display: 'flex', justifyContent: 'end', pb:1 }} >
+            
+            {isStored && hasApplied?
+                <Button className='JobCardButton-applied' variant='contained' color='error' onClick={handleClick}>
+                     Applied 
+                </Button>
+                     : 
+                <Button className='JobCardButton-apply' variant='contained' color='error' onClick={handleClick}>
+                     Apply 
+                </Button>
+            }
+            
+        </Box>
     )
 }
